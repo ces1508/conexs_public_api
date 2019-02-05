@@ -4,9 +4,11 @@ const helmet = require('helmet')
 const morgan = require('morgan')
 const path = require('path')
 const rfs = require('rotating-file-stream')
+const passport = require('passport')
 
 // routers handle
 const { siniestros, auth } = require('./routers')
+const { Strategy } = require('./middlewares/passport')
 
 const app = express()
 const logDirectory = path.join(__dirname, 'logs')
@@ -16,11 +18,13 @@ const accessLogStream = rfs('access.log', {
   path: logDirectory
 })
 
+passport.use(Strategy)
+
 app.use(bodyParser.json())
 app.use(helmet())
 app.use(morgan('combined', { stream: accessLogStream }))
 
-app.use('/siniestros', siniestros)
+app.use('/siniestros', passport.authenticate('jwt', { session: false }), siniestros)
 app.use('/auth', auth)
 app.get('/', (req, res) => {
   res.send('hola mundo')
