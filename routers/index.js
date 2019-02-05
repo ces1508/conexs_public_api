@@ -1,7 +1,11 @@
-const siniestros = require('./siniestros')
+const polizas = require('./polizas')
 const auth = require('./auth')
+const notifications = require('./notifications')
+const siniestros = require('./sinisters')
 
 module.exports = {
-  siniestros,
-  auth
+  polizas,
+  auth,
+  notifications,
+  siniestros
 }

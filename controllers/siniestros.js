@@ -1,11 +1,12 @@
 const { Siniestros } = require('../models')
 
-const getAllPolizas = async (req, res) => {
+const getSiniester = async (req, res) => {
   try {
+    let { poliza } = req.params
     let polizas = await Siniestros.findaLL({
-      where: { cedula_nit: req.user.cedula },
+      where: { cedula_nit: req.user.cedula_nit, formato: 'SINIESTRO', poliza: poliza },
       limit: 20,
-      offset: req.params.skip
+      offset: req.params.skip || 0
     })
     res.json(polizas)
   } catch (e) {
@@ -14,5 +15,5 @@ const getAllPolizas = async (req, res) => {
 }
 
 module.exports = {
-  getAllPolizas
+  getSiniester
 }

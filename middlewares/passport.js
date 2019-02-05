@@ -12,7 +12,8 @@ opts.secretOrKey = process.env.SECRET_TOKEN
 exports.Strategy = new JwtStrategy(opts, async (payload, done) => {
   try {
     let user = await Siniestros.findOne({
-      where: { cedula_nit: payload.cedula }
+      where: { cedula_nit: payload.cedula },
+      attributes: ['cedula_nit']
     })
     if (user) return done(null, user)
     done(null, false)

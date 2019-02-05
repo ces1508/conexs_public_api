@@ -2,7 +2,7 @@ const Router = require('express').Router()
 const { authenticate } = require('../controllers/auth')
 const { query, body } = require('express-validator/check')
 
-const { validate } = require('../middlewares/validateBody')
+const { validate } = require('../middlewares/utils')
 
 Router.post('/', [
   query('method').isString().optional(),
