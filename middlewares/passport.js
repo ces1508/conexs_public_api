@@ -1,4 +1,4 @@
-const JwtStrategy  = require('passport-jwt').Strategy
+const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
 const { Siniestros } = require('../models/')
 require('dotenv').config()
@@ -18,8 +18,6 @@ exports.Strategy = new JwtStrategy(opts, async (payload, done) => {
     if (user) return done(null, user)
     done(null, false)
   } catch (e) {
-    return done(null, fase)
+    return done(null, false)
   }
 })
-
-

@@ -15,7 +15,7 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   },
   define: {
     timestamps: false
-}
+  }
 })
 
 const Siniestros = SiniestrosModel(sequelize, Sequelize)

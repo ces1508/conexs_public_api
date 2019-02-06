@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "standard --fix && node index.js",
+    "lint": "standard --fix",
+    "start": "npm run lint && node index.js",
     "test": "mocha --exit"
   },
   "standard": {

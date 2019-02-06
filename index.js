@@ -7,7 +7,8 @@ const rfs = require('rotating-file-stream')
 const passport = require('passport')
 
 // routers handle
-const { polizas, auth, notifications, siniestros } = require('./routers')
+const { polizas, auth, notifications, siniestros, profile } = require('./routers')
+const { handleRoute } = require('./middlewares/utils')
 const { Strategy } = require('./middlewares/passport')
 
 const app = express()
@@ -25,13 +26,11 @@ app.use(helmet())
 app.use(morgan('combined', { stream: accessLogStream }))
 
 app.use('/auth', auth)
+app.use('/profile', passport.authenticate('jwt', { session: false }), profile)
 app.use('/polizas', passport.authenticate('jwt', { session: false }), polizas)
 app.use('/siniestros', passport.authenticate('jwt', { session: false }), siniestros)
 app.use('/notifications', passport.authenticate('jwt', { session: false }), notifications)
-app.get('/', (req, res) => {
-  res.send('hola mundo')
-})
-
+app.use('*', handleRoute)
 app.listen(3000, err => {
   if (err) {
     console.log(err.stack)

@@ -6,7 +6,7 @@ const getAllPolizas = async (req, res) => {
     let polizas = await Siniestros.findAll({
       where: { cedula_nit: req.user.cedula_nit },
       attributes: {
-        include: [[sequelize.literal('COUNT (CASE WHEN formato = "SINIESTRO" THEN "a" END)'), 'AMOUNT_SINISTERS']],
+        include: [[sequelize.literal('COUNT (CASE WHEN formato = "SINIESTRO" THEN "a" END)'), 'AMOUNT_SINISTERS']]
       },
       group: 'poliza',
       limit: 20,
@@ -14,7 +14,7 @@ const getAllPolizas = async (req, res) => {
     })
     res.json({ polizas })
   } catch (e) {
-    return res.status(500).json({ error: { message: 'FATAL_SERVER_ERROR' , fullError: e } })
+    return res.status(500).json({ error: { message: 'FATAL_SERVER_ERROR', fullError: e } })
   }
 }
 

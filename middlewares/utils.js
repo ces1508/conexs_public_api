@@ -8,6 +8,11 @@ const validate = (req, res, next) => {
   next()
 }
 
+const handleRoute = (req, res) => {
+  res.status(403).json({ error: { type: 'unAuthorizade' } })
+}
+
 module.exports = {
-  validate
+  validate,
+  handleRoute
 }
