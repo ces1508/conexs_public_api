@@ -7,7 +7,7 @@ const rfs = require('rotating-file-stream')
 const passport = require('passport')
 
 // routers handle
-const { polizas, auth, notifications, siniestros, profile } = require('./routers')
+const { polizas, auth, notifications, siniestros, profile, soats, devices } = require('./routers')
 const { handleRoute } = require('./middlewares/utils')
 const { Strategy } = require('./middlewares/passport')
 
@@ -30,6 +30,8 @@ app.use('/profile', passport.authenticate('jwt', { session: false }), profile)
 app.use('/polizas', passport.authenticate('jwt', { session: false }), polizas)
 app.use('/siniestros', passport.authenticate('jwt', { session: false }), siniestros)
 app.use('/notifications', passport.authenticate('jwt', { session: false }), notifications)
+app.use('/soats', passport.authenticate('jwt', { session: false }), soats)
+app.use('/devices', passport.authenticate('jwt', { session: false }), devices)
 app.use('*', handleRoute)
 app.listen(3000, err => {
   if (err) {
